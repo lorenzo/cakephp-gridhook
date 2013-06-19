@@ -46,7 +46,7 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 			throw new InvalidArgumentException('Not a valid handler for sendgrid webhooks');
 		}
 
-		if (env('Content-Type') === 'application/json') {
+		if (env('HTTP_CONTENT_TYPE') === 'application/json') {
 			$this->_parseBatch($request, $callable);
 		} else {
 			$this->_trigger($callable, $request->data);
@@ -66,7 +66,7 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
  * @return void
  */
 	protected function _parseBatch($request, $callable) {
-		$batch = explode("\r\n", $request->input());
+		$batch = explode("\n", $request->input());
 		foreach ($batch as $document) {
 			$this->_trigger($callable, json_decode($document, true));
 		}
