@@ -16,7 +16,6 @@ bounce or when marked as spam.
 
 The only installation method supported by this plugin is by using composer. Just add this to your composer.json configuration:
 
-	```json
 	{
 	  "extra": {
 		"installer-paths": {
@@ -32,12 +31,10 @@ The only installation method supported by this plugin is by using composer. Just
 
 You need to enable the plugin your `app/Config/bootstrap.php` file:
 
-	```php
     CakePlugin::load('GridHook');
 
 Additionally, in the same file, add this to your dispatcher filters array:
 
-	```php
 	Configure::write('Dispatcher.filters', array(
 		// ... Other filters ...
 		'GridHook' => array(
@@ -49,7 +46,6 @@ Additionally, in the same file, add this to your dispatcher filters array:
 The `handler` key is any valid callable object or closure that will be called each time an event is received
 from SendGrid. The `handler` key is mandatory for this plugin to work correctly. Another example:
 
-	```php
 	Configure::write('Dispatcher.filters', array(
 		// ... Other filters ...
 		'GridHook' => array(
@@ -65,7 +61,6 @@ from SendGrid. The `handler` key is mandatory for this plugin to work correctly.
 By default this plugin will listen on the `/webhook/sendgrid` url, if for any reason you want to change it,
 set the `endpoint` key to another path
 
-	```php
 	Configure::write('Dispatcher.filters', array(
 		// ... Other filters ...
 		'GridHook' => array(
@@ -81,7 +76,6 @@ The callback configured in the `handler` key will be called for each event gener
 that was received via the webhook. The first argument of this function will be an object of type
 `SendGridEvent` that will contain call the properties sent for the event. This is an example:
 
-	```php
 	App::uses('SendGridEvent', 'GridHook.Model');
 
 	class Newsletter extends AppModel {
