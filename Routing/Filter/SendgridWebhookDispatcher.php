@@ -52,6 +52,7 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 			$this->_trigger($callable, $request->data);
 		}
 
+		$response->statusCode(200);
 		$event->stopPropagation();
 		return $response;
 	}
