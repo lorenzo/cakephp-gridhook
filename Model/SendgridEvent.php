@@ -58,8 +58,15 @@ class SendgridEvent {
 
 		if (isset($properties['timestamp'])) {
 			$this->timestamp = new DateTime('@' . $properties['timestamp']);
+
 		} else {
-			$this->timestamp = new DateTime();
+			$this->timestamp = new DateTime('now');
+		}
+
+		$this->timestamp->setTimezone(new DateTimezone('UTC'));
+
+		if (isset($properties['category'])) {
+			$this->category = $properties['category'];
 		}
 
 		$this->data = $properties;
