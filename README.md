@@ -17,11 +17,6 @@ bounce or when marked as spam.
 The only installation method supported by this plugin is by using composer. Just add this to your composer.json configuration:
 
 	{
-	  "extra": {
-		"installer-paths": {
-				"app/Plugin/GridHook": ["lorenzo/cakephp-gridhook"]
-		}
-	  },
 	  "require" : {
 		"lorenzo/cakephp-gridhook": "master"
 	  }
