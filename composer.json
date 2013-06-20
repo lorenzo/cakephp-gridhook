@@ -15,6 +15,6 @@
         "composer/installers": "*"
     },
     "extra": {
-        "installer-name": "GridHook
+        "installer-name": "GridHook"
     }
 }
