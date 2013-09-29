@@ -57,8 +57,11 @@ class SendgridEvent {
 		}
 
 		if (isset($properties['timestamp'])) {
-			$this->timestamp = new DateTime('@' . $properties['timestamp']);
-
+			if (is_numeric($properties['timestamp'])) {
+				$this->timestamp = new DateTime('@' . $properties['timestamp']);
+			} elseif (is_array($properties['timestamp'])) {
+				$this->timestamp = new DateTime($properties['timestamp']['date'], new DateTimezone($properties['timestamp']['timezone']));
+			}
 		} else {
 			$this->timestamp = new DateTime('now');
 		}

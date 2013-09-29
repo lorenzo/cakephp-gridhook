@@ -49,7 +49,9 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 		if (env('HTTP_CONTENT_TYPE') === 'application/json') {
 			$this->_parseBatch($request, $callable);
 		} else {
-			$this->_trigger($callable, $request->data);
+			$sendGridEvent = new SendgridEvent();
+			$sendGridEvent->set($request->data);
+			$this->_trigger($callable, array($sendGridEvent));
 		}
 
 		$response->statusCode(200);
@@ -66,23 +68,27 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
  * @return void
  */
 	protected function _parseBatch($request, $callable) {
-		$batch = explode("\n", $request->input());
+		$batch = json_decode($request->input(), true);
+
+		$events = array();
 		foreach ($batch as $document) {
-			$this->_trigger($callable, json_decode($document, true));
+			$event = new SendgridEvent();
+			$event->set($document);
+			$events[] = $event;
 		}
+
+		$this->_trigger($callable, $events);
 	}
 
 /**
  * Triggers the callable by passing a new SendgridEvent object
  *
  * @param callable $callable
- * @param array $document
+ * @param array $events
  * @return void
  */
-	protected function _trigger($callable, $document) {
-		$event = new SendgridEvent();
-		$event->set($document);
-		$callable($event);
+	protected function _trigger($callable, $events) {
+		$callable($events);
 	}
 
 }
