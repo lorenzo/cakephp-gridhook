@@ -47,11 +47,9 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 		}
 
 		if (env('HTTP_CONTENT_TYPE') === 'application/json') {
-			$this->_parseBatch($request, $callable);
+			$this->_parseBatch($request->input(), $callable);
 		} else {
-			$sendGridEvent = new SendgridEvent();
-			$sendGridEvent->set($request->data);
-			$this->_trigger($callable, array($sendGridEvent));
+			$this->_parseBatch($request->data, $callable);
 		}
 
 		$response->statusCode(200);
@@ -63,12 +61,12 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
  * Processes a batch event list and triggers the callback for each event
  * correctly parsed
  *
- * @param CakeRequest $request
+ * @param array $data
  * @param callable $callable
  * @return void
  */
-	protected function _parseBatch($request, $callable) {
-		$batch = json_decode($request->input(), true);
+	protected function _parseBatch($data, $callable) {
+		$batch = json_decode($data, true);
 
 		$events = array();
 		foreach ($batch as $document) {
