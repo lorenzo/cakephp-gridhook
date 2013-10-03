@@ -48,8 +48,8 @@ class SendgridEvent {
  * @return void
  */
 	public function set($properties) {
-		if (isset($properties['event'])) {
-			$this->type = $properties['event'];
+		if (isset($properties['type'])) {
+			$this->type = $properties['type'];
 		}
 
 		if (isset($properties['email'])) {
