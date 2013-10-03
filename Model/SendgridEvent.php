@@ -12,7 +12,7 @@ class SendgridEvent implements JsonSerializable {
  *
  * @var string
  */
-	public $type;
+	public $event;
 
 /**
  * The email recipient to which this event is related
@@ -66,8 +66,8 @@ class SendgridEvent implements JsonSerializable {
 	public function set($properties) {
 		$this->properties = $properties;
 
-		if (isset($properties['type'])) {
-			$this->type = $properties['type'];
+		if (isset($properties['event'])) {
+			$this->event = $properties['event'];
 		}
 
 		if (isset($properties['email'])) {
@@ -110,7 +110,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isProcessed() {
-		return $this->type === 'processed';
+		return $this->event === 'processed';
 	}
 
 /**
@@ -119,7 +119,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isDeferred() {
-		return $this->type === 'deferred';
+		return $this->event === 'deferred';
 	}
 
 /**
@@ -128,7 +128,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isDropped() {
-		return $this->type === 'dropped';
+		return $this->event === 'dropped';
 	}
 
 /**
@@ -137,7 +137,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isDelivered() {
-		return $this->type === 'delivered';
+		return $this->event === 'delivered';
 	}
 
 /**
@@ -146,7 +146,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isOpen() {
-		return $this->type === 'open';
+		return $this->event === 'open';
 	}
 
 /**
@@ -155,7 +155,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isClick() {
-		return $this->type === 'click';
+		return $this->event === 'click';
 	}
 
 /**
@@ -164,7 +164,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isBounce() {
-		return $this->type === 'bounce';
+		return $this->event === 'bounce';
 	}
 
 /**
@@ -173,7 +173,7 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isSpamReport() {
-		return $this->type === 'spamreport';
+		return $this->event === 'spamreport';
 	}
 
 /**
@@ -182,6 +182,6 @@ class SendgridEvent implements JsonSerializable {
  * @return boolean
  */
 	public function isUnsubscribe() {
-		return $this->type === 'unsubscribe';
+		return $this->event === 'unsubscribe';
 	}
 }
