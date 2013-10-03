@@ -46,30 +46,11 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 			throw new InvalidArgumentException('Not a valid handler for sendgrid webhooks');
 		}
 
-		$this->_parseBatch(json_decode($request->input(), true), $callable);
+		$this->_trigger($callable, json_decode($request->input(), true));
 
 		$response->statusCode(200);
 		$event->stopPropagation();
 		return $response;
-	}
-
-/**
- * Processes a batch event list and triggers the callback for each event
- * correctly parsed
- *
- * @param array $data
- * @param callable $callable
- * @return void
- */
-	protected function _parseBatch($batch, $callable) {
-		$events = array();
-		foreach ($batch as $document) {
-			$event = new SendgridEvent();
-			$event->set($document);
-			$events[] = $event;
-		}
-
-		$this->_trigger($callable, $events);
 	}
 
 /**
