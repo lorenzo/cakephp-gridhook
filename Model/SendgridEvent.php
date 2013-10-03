@@ -72,7 +72,9 @@ class SendgridEvent {
 			$this->category = $properties['category'];
 		}
 
-		$this->data = $properties;
+		if (!empty($properties['data'])) {
+			$this->data = $properties['data'];
+		}
 	}
 
 /**

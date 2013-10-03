@@ -1,20 +1,18 @@
 {
-    "name": "lorenzo/cakephp-gridhook",
-    "description": "CakePHP Webhook event handler for SendGrid",
-    "type": "cakephp-plugin",
-    "keywords": ["cakephp", "sendgrid", "webhook", "event"],
-    "homepage": "https://github.com/lorenzo/cakephp-gridhook",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "José Lorenzo Rodríguez",
-            "role": "Author"
-        }
-    ],
-    "require": {
-        "composer/installers": "*"
-    },
-    "extra": {
-        "installer-name": "GridHook"
-    }
+  "name": "lorenzo/cakephp-gridhook",
+  "description": "CakePHP Webhook event handler for SendGrid",
+  "type": "cakephp-plugin",
+  "keywords": ["cakephp", "sendgrid", "webhook", "event"],
+  "homepage": "https://github.com/lorenzo/cakephp-gridhook",
+  "license": "MIT",
+  "authors": [{
+    "name": "José Lorenzo Rodríguez",
+    "role": "Author"
+  }],
+  "require": {
+    "composer/installers": "*"
+  },
+  "extra": {
+    "installer-name": "GridHook"
+  }
 }
