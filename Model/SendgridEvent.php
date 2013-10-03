@@ -5,7 +5,7 @@
  *
  * @see http://sendgrid.com/docs/API_Reference/Webhooks/event.html
  */
-class SendgridEvent {
+class SendgridEvent implements JsonSerializable {
 
 /**
  * The type of event (processed, dropped, delivered, bounce, open, click, unsubscribe, spamreport)
@@ -43,11 +43,29 @@ class SendgridEvent {
 	public $data = array();
 
 /**
+ * All properties
+ *
+ * @var array
+ */
+	public $properties = [];
+
+/**
+ * Called when marshalled back to an object
+ *
+ * @param array $properties
+ */
+	public function __construct(array $properties) {
+		$this->set($properties);
+	}
+
+/**
  * Sets the properties in this object as received from the webhook
  *
  * @return void
  */
 	public function set($properties) {
+		$this->properties = $properties;
+
 		if (isset($properties['type'])) {
 			$this->type = $properties['type'];
 		}
@@ -75,6 +93,15 @@ class SendgridEvent {
 		if (!empty($properties['data'])) {
 			$this->data = $properties['data'];
 		}
+	}
+
+/**
+ * See http://php.net/manual/en/jsonserializable.jsonserialize.php
+ *
+ * @return array
+ */
+	public function jsonSerialize() {
+		return $this->properties;
 	}
 
 /**
