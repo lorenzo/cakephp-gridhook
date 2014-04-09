@@ -46,7 +46,14 @@ class SendgridWebhookDispatcher extends DispatcherFilter {
 			throw new InvalidArgumentException('Not a valid handler for sendgrid webhooks');
 		}
 
-		$this->_trigger($callable, json_decode($request->input(), true));
+		$data = [
+			'events' => json_decode($request->input(), true),
+			'meta' => [
+				'relay' => $request->query('relay')
+			]
+		];
+
+		$this->_trigger($callable, $data);
 
 		$response->statusCode(200);
 		$event->stopPropagation();
